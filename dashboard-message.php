@@ -13,3 +13,88 @@
  * Text Domain:       dashboard-message
  * Domain Path:       /languages
  */
+
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
+    require_once dirname(__FILE__) . '/vendor/autoload.php';
+}
+
+final class DashboardMessage
+{
+    private function __construct()
+    {
+        $this->define_constants();
+        register_activation_hook(__FILE__, [$this, 'activate']);
+        register_deactivation_hook(__FILE__, [$this, 'deactivate']);
+        add_action('plugins_loaded', [$this, 'init_plugin']);
+    }
+
+    public static function init()
+    {
+        static $instance = false;
+
+        if (!$instance) {
+            $instance = new self();
+        }
+
+        return $instance;
+    }
+    public function define_constants()
+    {
+        /**
+         * Defines CONSTANTS for Whole plugins.
+         */
+        define('DASHBOARDMESSAGE_VERSION', '1.0.0');
+        define('DASHBOARDMESSAGE_PLUGIN_FILE', __FILE__);
+        define('DASHBOARDMESSAGE_PLUGIN_BASENAME', plugin_basename(__FILE__));
+        define('DASHBOARDMESSAGE_PLUGIN_SLUG', 'dashboard-message');
+        define('DASHBOARDMESSAGE_PLUGIN_ROOT_URI', plugins_url("/", __FILE__));
+        define('DASHBOARDMESSAGE_ROOT_DIR_PATH', plugin_dir_path(__FILE__));
+    }
+
+    /**
+     * Initialize the plugin
+     *
+     * @return void
+     */
+    public function init_plugin()
+    {
+        $this->load_textdomain();
+        $this->dispatch_action();
+        \DashboardMessage\Migration::init();
+    }
+
+    public function load_textdomain()
+    {
+        load_plugin_textdomain(
+            'dashboard-message',
+            false,
+            dirname(DASHBOARDMESSAGE_PLUGIN_BASENAME) . '/languages'
+        );
+    }
+
+    public function dispatch_action()
+    {
+    }
+
+    public function activate()
+    {
+        DashboardMessage\Installer::init();
+    }
+}
+
+/**
+ * Initializes the main plugin
+ *
+ * @return \DashboardMessage
+ */
+function DashboardMessage_Start()
+{
+    return DashboardMessage::init();
+}
+
+// Plugin Start
+DashboardMessage_Start();

@@ -1,0 +1,14 @@
+{
+    "name": "tusharimran/dashboard-message",
+    "description": "Show Status message on the WordPress admin dashboard page.",
+    "authors": [
+        {
+            "name": "tusharimran"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "DashboardMessage\\": "./includes"
+        }
+    }
+}
