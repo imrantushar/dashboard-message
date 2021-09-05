@@ -7,6 +7,7 @@ class Menu
     {
         $self = new self();
         add_action('admin_menu', array( $self, 'add_menu' ));
+        add_action('network_admin_menu', array( $self, 'add_network_menu' ));
     }
     
     /**
@@ -21,6 +22,25 @@ class Menu
     {
         add_submenu_page(
             'tools.php',
+            __('Dashboard Message', 'dashboard-message'),
+            __('Dashboard Message', 'dashboard-message'),
+            'manage_options',
+            DASHBOARDMESSAGE_PLUGIN_SLUG,
+            array($this, 'dashboard_message_ref_page_callback')
+        );
+    }
+
+    /**
+     * Add All necessary admin menu
+     *
+     * Fired by `network_admin_menu` action.
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function add_network_menu()
+    {
+        add_menu_page(
             __('Dashboard Message', 'dashboard-message'),
             __('Dashboard Message', 'dashboard-message'),
             'manage_options',

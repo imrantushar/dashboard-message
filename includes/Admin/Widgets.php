@@ -7,6 +7,7 @@ class Widgets
     {
         $self = new self();
         add_action('wp_dashboard_setup', [$self, 'add_dashboard_widget']);
+        add_action('wp_network_dashboard_setup', [$self, 'add_dashboard_widget']);
     }
     /**
      * Register New Dashboard Widget
