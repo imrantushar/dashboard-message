@@ -7,6 +7,7 @@ class Admin
     {
         $self = new self();
         Admin\Menu::init();
+        Admin\Widgets::init();
         $self->dispatch_hook();
     }
     public function dispatch_hook()
