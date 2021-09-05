@@ -30,13 +30,15 @@ class Menu
     }
 
     /**
-     * Admin Dashboard Message Page HTML view
+     * Admin Dashboard Message Page view
      *
      * @since 1.0.0
      * @return void
      */
     public function dashboard_message_ref_page_callback()
     {
+        $is_update = (isset($_GET['status']) && $_GET['status'] == 'success' ? true : false);
+        $message = get_option('dashboard_message');
         include DASHBOARDMESSAGE_ADMIN_VIEW_PATH . 'dashboard-message.php';
     }
 }
