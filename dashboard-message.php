@@ -53,6 +53,7 @@ final class DashboardMessage
         define('DASHBOARDMESSAGE_PLUGIN_SLUG', 'dashboard-message');
         define('DASHBOARDMESSAGE_PLUGIN_ROOT_URI', plugins_url("/", __FILE__));
         define('DASHBOARDMESSAGE_ROOT_DIR_PATH', plugin_dir_path(__FILE__));
+        define('DASHBOARDMESSAGE_ADMIN_VIEW_PATH', DASHBOARDMESSAGE_ROOT_DIR_PATH . 'includes/Admin/Views/');
     }
 
     /**
@@ -65,6 +66,9 @@ final class DashboardMessage
         $this->load_textdomain();
         $this->dispatch_action();
         \DashboardMessage\Migration::init();
+        if (is_admin()) {
+            \DashboardMessage\Admin::init();
+        }
     }
 
     public function load_textdomain()
