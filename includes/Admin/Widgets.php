@@ -16,7 +16,7 @@ class Widgets
      */
     public function add_dashboard_widget()
     {
-        wp_add_dashboard_widget('dashboard_message', __('Dashboard Message'), [$this, 'dashboard_message_widget_callback']);
+        wp_add_dashboard_widget('dashboard_message', __('Dashboard Message'), [$this, 'dashboard_message_widget_callback'], null, null, 'normal', 'high');
     }
 
     /**
@@ -27,6 +27,7 @@ class Widgets
      */
     public function dashboard_message_widget_callback()
     {
-        echo 'Dashboard Message';
+        $message = get_option('dashboard_message');
+        include DASHBOARDMESSAGE_ADMIN_VIEW_PATH . 'dashboard-message.php';
     }
 }
