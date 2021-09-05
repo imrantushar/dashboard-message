@@ -28,7 +28,6 @@ final class DashboardMessage
     {
         $this->define_constants();
         register_activation_hook(__FILE__, [$this, 'activate']);
-        register_deactivation_hook(__FILE__, [$this, 'deactivate']);
         add_action('plugins_loaded', [$this, 'init_plugin']);
     }
 
