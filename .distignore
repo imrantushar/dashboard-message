@@ -1,0 +1,15 @@
+.babelrc
+.gitignore
+.distignore
+package-lock.json
+package.json
+webpack.config.js
+.git
+node_modules
+composer.json
+composer.lock
+prepros.config
+*.xml
+*.map
+.prettierignore
+.prettierrc.json
