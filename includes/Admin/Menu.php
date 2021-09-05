@@ -39,6 +39,6 @@ class Menu
     {
         $is_update = (isset($_GET['status']) && $_GET['status'] == 'success' ? true : false);
         $message = get_option('dashboard_message');
-        include DASHBOARDMESSAGE_ADMIN_VIEW_PATH . 'dashboard-message.php';
+        include DASHBOARDMESSAGE_ADMIN_VIEW_PATH . 'dashboard-message-form.php';
     }
 }
