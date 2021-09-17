@@ -1,24 +1,23 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => '792083ba58aecf9cad0e3af0f42a701ba562d43b',
+        'name' => 'tusharimran/dashboard-message',
+        'dev' => true,
     ),
-    'reference' => '0c9522967d683c2742d05cc5e1f4371ded3c1950',
-    'name' => 'tusharimran/dashboard-message',
-  ),
-  'versions' => 
-  array (
-    'tusharimran/dashboard-message' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '0c9522967d683c2742d05cc5e1f4371ded3c1950',
+    'versions' => array(
+        'tusharimran/dashboard-message' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => '792083ba58aecf9cad0e3af0f42a701ba562d43b',
+            'dev_requirement' => false,
+        ),
     ),
-  ),
 );
