@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1); // -*- coding: utf-8 -*-
 namespace DashboardMessage\Admin;
 
 class Widgets
@@ -6,8 +6,8 @@ class Widgets
     public static function init()
     {
         $self = new self();
-        add_action('wp_dashboard_setup', [$self, 'add_dashboard_widget']);
-        add_action('wp_network_dashboard_setup', [$self, 'add_dashboard_widget']);
+        add_action('wp_dashboard_setup', [$self, 'addDashboardWidget']);
+        add_action('wp_network_dashboard_setup', [$self, 'addDashboardWidget']);
     }
     /**
      * Register New Dashboard Widget
@@ -15,9 +15,17 @@ class Widgets
      * @since 1.0.0
      * @return void
      */
-    public function add_dashboard_widget()
+    public function addDashboardWidget()
     {
-        wp_add_dashboard_widget('dashboard_message', __('Dashboard Message'), [$this, 'dashboard_message_widget_callback'], null, null, 'normal', 'high');
+        wp_add_dashboard_widget(
+            'dashboard_message',
+            __('Dashboard Message', 'dashboard-message'),
+            [$this, 'dashboardMessageWidgetCallback'],
+            null,
+            null,
+            'normal',
+            'high'
+        );
     }
 
     /**
@@ -26,7 +34,7 @@ class Widgets
      * @since 1.0.0
      * @return void
      */
-    public function dashboard_message_widget_callback()
+    public function dashboardMessageWidgetCallback()
     {
         $message = get_option('dashboard_message');
         include DASHBOARDMESSAGE_ADMIN_VIEW_PATH . 'dashboard-message.php';

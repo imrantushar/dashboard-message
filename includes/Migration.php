@@ -1,4 +1,4 @@
-<?php
+<?php   declare(strict_types=1); // -*- coding: utf-8 -*-
 namespace DashboardMessage;
 
 class Migration
@@ -6,7 +6,7 @@ class Migration
     public static function init()
     {
         $self = new self();
-        $self->run_migration();
+        $self->runMigration();
     }
     /**
      * Version Number keep update when the plugin comes to a new update
@@ -14,10 +14,10 @@ class Migration
      * @since 1.0.0
      * @return void
      */
-    public function run_migration()
+    public function runMigration()
     {
-        $current_version = get_option('dashboard_message_version');
-        if ($current_version && $current_version != DASHBOARDMESSAGE_VERSION) {
+        $currentVersion = get_option('dashboard_message_version');
+        if ($currentVersion && $currentVersion !== DASHBOARDMESSAGE_VERSION) {
             // plugin update logic will be here
             update_option('dashboard_message_version', DASHBOARDMESSAGE_VERSION);
         }

@@ -7,13 +7,26 @@ namespace Composer\Autoload;
 class ComposerStaticInit5c2c60fc60b40dfaca2fae17d6124e19
 {
     public static $prefixLengthsPsr4 = array (
+        'N' => 
+        array (
+            'NeutronStandard\\' => 16,
+        ),
         'D' => 
         array (
+            'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 55,
             'DashboardMessage\\' => 17,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'NeutronStandard\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/automattic/phpcs-neutron-standard/NeutronStandard',
+        ),
+        'Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dealerdirect/phpcodesniffer-composer-installer/src',
+        ),
         'DashboardMessage\\' => 
         array (
             0 => __DIR__ . '/../..' . '/includes',

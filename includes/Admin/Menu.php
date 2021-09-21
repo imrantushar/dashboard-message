@@ -1,4 +1,4 @@
-<?php
+<?php  declare(strict_types=1); // -*- coding: utf-8 -*-
 namespace DashboardMessage\Admin;
 
 class Menu
@@ -6,8 +6,8 @@ class Menu
     public static function init()
     {
         $self = new self();
-        add_action('admin_menu', array( $self, 'add_menu' ));
-        add_action('network_admin_menu', array( $self, 'add_network_menu' ));
+        add_action('admin_menu', [$self, 'addMenu']);
+        add_action('network_admin_menu', [$self, 'addNetworkMenu']);
     }
     
     /**
@@ -18,7 +18,7 @@ class Menu
      * @since 1.0.0
      * @return void
      */
-    public function add_menu()
+    public function addMenu()
     {
         add_submenu_page(
             'tools.php',
@@ -26,7 +26,7 @@ class Menu
             __('Dashboard Message', 'dashboard-message'),
             'manage_options',
             DASHBOARDMESSAGE_PLUGIN_SLUG,
-            array($this, 'dashboard_message_ref_page_callback')
+            [$this, 'dashboardMessageRefPageCallback']
         );
     }
 
@@ -38,14 +38,14 @@ class Menu
      * @since 1.0.0
      * @return void
      */
-    public function add_network_menu()
+    public function addNetworkMenu()
     {
         add_menu_page(
             __('Dashboard Message', 'dashboard-message'),
             __('Dashboard Message', 'dashboard-message'),
             'manage_options',
             DASHBOARDMESSAGE_PLUGIN_SLUG,
-            array($this, 'dashboard_message_ref_page_callback')
+            [$this, 'dashboardMessageRefPageCallback']
         );
     }
 
@@ -55,9 +55,9 @@ class Menu
      * @since 1.0.0
      * @return void
      */
-    public function dashboard_message_ref_page_callback()
+    public function dashboardMessageRefPageCallback()
     {
-        $is_update = (isset($_GET['status']) && $_GET['status'] == 'success' ? true : false);
+        $isUpdate = (isset($_GET['status']) && $_GET['status'] === 'success' ? true : false);  // WPCS: input var ok; CSRF ok.
         $message = get_option('dashboard_message');
         include DASHBOARDMESSAGE_ADMIN_VIEW_PATH . 'dashboard-message-form.php';
     }

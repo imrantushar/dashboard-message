@@ -1,4 +1,4 @@
-<?php
+<?php   declare(strict_types=1); // -*- coding: utf-8 -*-
 /**
  * Plugin Name:       Dashboard Message
  * Plugin URI:        itushar.me/dashboard-message
@@ -14,6 +14,8 @@
  * Domain Path:       /languages
  */
 
+namespace DashboardMessage;
+
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -26,12 +28,12 @@ final class DashboardMessage
 {
     private function __construct()
     {
-        $this->define_constants();
+        $this->defineConstants();
         register_activation_hook(__FILE__, [$this, 'activate']);
-        add_action('plugins_loaded', [$this, 'init_plugin']);
+        add_action('plugins_loaded', [$this, 'initPlugin']);
     }
 
-    public static function init()
+    public static function init() : self
     {
         static $instance = false;
 
@@ -41,7 +43,8 @@ final class DashboardMessage
 
         return $instance;
     }
-    public function define_constants()
+
+    public function defineConstants()
     {
         /**
          * Defines CONSTANTS for Whole plugins.
@@ -52,7 +55,10 @@ final class DashboardMessage
         define('DASHBOARDMESSAGE_PLUGIN_SLUG', 'dashboard-message');
         define('DASHBOARDMESSAGE_PLUGIN_ROOT_URI', plugins_url("/", __FILE__));
         define('DASHBOARDMESSAGE_ROOT_DIR_PATH', plugin_dir_path(__FILE__));
-        define('DASHBOARDMESSAGE_ADMIN_VIEW_PATH', DASHBOARDMESSAGE_ROOT_DIR_PATH . 'includes/Admin/Views/');
+        define(
+            'DASHBOARDMESSAGE_ADMIN_VIEW_PATH',
+            DASHBOARDMESSAGE_ROOT_DIR_PATH . 'includes/Admin/Views/'
+        );
     }
 
     /**
@@ -60,17 +66,17 @@ final class DashboardMessage
      *
      * @return void
      */
-    public function init_plugin()
+    public function initPlugin()
     {
-        $this->load_textdomain();
-        $this->dispatch_action();
+        $this->loadTextdomain();
+        $this->dispatchAction();
         \DashboardMessage\Migration::init();
         if (is_admin()) {
             \DashboardMessage\Admin::init();
         }
     }
 
-    public function load_textdomain()
+    public function loadTextdomain()
     {
         load_plugin_textdomain(
             'dashboard-message',
@@ -79,13 +85,13 @@ final class DashboardMessage
         );
     }
 
-    public function dispatch_action()
+    public function dispatchAction()
     {
     }
 
     public function activate()
     {
-        DashboardMessage\Installer::init();
+        \DashboardMessage\Installer::init();
     }
 }
 
@@ -94,7 +100,7 @@ final class DashboardMessage
  *
  * @return \DashboardMessage
  */
-function DashboardMessage_Start()
+function DashboardMessage_Start() : DashboardMessage
 {
     return DashboardMessage::init();
 }

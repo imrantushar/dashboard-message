@@ -1,4 +1,4 @@
-<?php
+<?php   declare(strict_types=1); // -*- coding: utf-8 -*-
 namespace DashboardMessage;
 
 class Admin
@@ -9,12 +9,14 @@ class Admin
         Admin\Menu::init();
         Admin\Widgets::init();
         Admin\Assets::init();
-        $self->dispatch_hook();
+        $self->dispatchHook();
     }
-    public function dispatch_hook()
+
+    public function dispatchHook()
     {
-        add_action('admin_post_dashboard_message_save_message', array($this, 'dashboard_message_save_message'));
+        add_action('admin_post_dashboard_message_save_message', [$this, 'dashboardMessageSaveMessage']);
     }
+
     /**
      * Dashboard Message Form submit Callback Handler
      *
@@ -23,22 +25,32 @@ class Admin
      * @since 1.0.0
      * @return void
      */
-    public function dashboard_message_save_message()
+
+    public function dashboardMessageSaveMessage() : bool
     {
-        if (isset($_REQUEST['_dm_nonce']) && wp_verify_nonce($_REQUEST['_dm_nonce'], 'dm-save-settings-nonce') && current_user_can('manage_options')) {
-            do_action('dashboard_message_before_save_form_data', $_POST);
+        if (isset($_REQUEST['_dm_nonce']) &&
+            wp_verify_nonce(
+                sanitize_text_field(wp_unslash($_REQUEST['_dm_nonce'])),
+                'dm-save-settings-nonce'
+            ) &&
+            current_user_can('manage_options')
+        ) { // WPCS: input var ok; CSRF ok.
+            do_action('dashboard_message_before_save_form_data', $_POST); // WPCS: input var ok; CSRF ok.
         
-            $message = (isset($_POST['message']) ? sanitize_text_field($_POST['message']) : "");
-            $is_update = update_option('dashboard_message', apply_filters('dashboard_message_form_message', $message), false);
+            $message = (isset($_POST['message']) ? sanitize_text_field(wp_unslash($_POST['message'])) : ""); // WPCS: input var ok; CSRF ok.
+            $isUpdate = update_option(
+                'dashboard_message',
+                apply_filters('dashboard_message_form_message', $message),
+                false
+            );
             
-            do_action('dashboard_message_after_save_form_data', $is_update);
+            do_action('dashboard_message_after_save_form_data', $isUpdate);
             
-            $referer_url = add_query_arg(array(
-                'status' => ($is_update ? 'success' : false),
-            ), wp_get_referer());
-            wp_redirect(apply_filters('dashboard_message_form_redirect_url', $referer_url));
-        } else {
-            die(__('Security check', 'academy'));
+            $refererUrl = add_query_arg([
+                'status' => ($isUpdate ? 'success' : false),
+            ], wp_get_referer());
+            return wp_redirect(apply_filters('dashboard_message_form_redirect_url', $refererUrl));
         }
+        die('Security check');
     }
 }
