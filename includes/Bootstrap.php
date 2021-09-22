@@ -6,21 +6,28 @@ use DashboardMessage\Admin\Assets;
 use DashboardMessage\Admin\Widgets;
 use DashboardMessage\Admin\Controller;
 
-class Bootstrap {
+class Bootstrap
+{
     public function __construct()
     {
-        if(is_admin()){
-            $this->admin_init();
+        if (is_admin()) {
+            $this->adminInit();
         }
     }
 
-    public function admin_init()
+    /**
+     * Run All Admin Hooks
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function adminInit()
     {
-        $Admin = new Admin();
-        $Admin->add(new Controller());
-        $Admin->add(new Assets());
-        $Admin->add(new Menu());
-        $Admin->add(new Widgets());
-        $Admin->run();
+        $admin = new Admin();
+        $admin->add(new Controller());
+        $admin->add(new Assets());
+        $admin->add(new Menu());
+        $admin->add(new Widgets());
+        $admin->dispatch();
     }
 }

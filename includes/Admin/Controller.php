@@ -3,8 +3,15 @@ namespace DashboardMessage\Admin;
 
 use DashboardMessage\Interfaces\DispatchInterfece;
 
-class Controller implements DispatchInterfece {
-    
+class Controller implements DispatchInterfece
+{
+
+    /**
+     * Added All Hook here
+     *
+     * @since 1.0.0
+     * @return void
+     */
     public function dispatch()
     {
         add_action('admin_post_dashboard_message_save_message', [$this, 'dashboardMessageSaveMessage']);

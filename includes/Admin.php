@@ -8,17 +8,29 @@ class Admin implements LoaderInterface
 {
     protected $payload = [];
 
+    /**
+     * Store Obj
+     *
+     * @since 1.0.0
+     * @return void
+     */
     public function add(Object $state)
     {
         $this->payload[] = $state;
     }
 
-    public function run()
+    /**
+     * Run Hooks
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    public function dispatch()
     {
-        foreach($this->payload as $payloadItem){
-            $Obj = new $payloadItem;
-            $Obj = new DispatchContainer($Obj);
-            $Obj->run();
+        foreach ($this->payload as $payloadItem) {
+            $obj = new $payloadItem;
+            $obj = new DispatchContainer($obj);
+            $obj->run();
         }
     }
 }

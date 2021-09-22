@@ -30,7 +30,6 @@ final class DashboardMessage
     {
         $this->defineConstants();
         register_activation_hook(__FILE__, [$this, 'activate']);
-        add_action('plugins_loaded', [$this, 'runMigration']);
         add_action('plugins_loaded', [$this, 'initPlugin']);
     }
 
@@ -70,6 +69,7 @@ final class DashboardMessage
     public function initPlugin()
     {
         $this->loadTextdomain();
+        $this->runMigration();
         new \DashboardMessage\Bootstrap();
     }
 
