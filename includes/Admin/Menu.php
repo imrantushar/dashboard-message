@@ -1,13 +1,14 @@
 <?php  declare(strict_types=1); // -*- coding: utf-8 -*-
 namespace DashboardMessage\Admin;
 
-class Menu
+use DashboardMessage\Interfaces\DispatchInterfece;
+
+class Menu implements DispatchInterfece
 {
-    public static function init()
+    public function dispatch()
     {
-        $self = new self();
-        add_action('admin_menu', [$self, 'addMenu']);
-        add_action('network_admin_menu', [$self, 'addNetworkMenu']);
+        add_action('admin_menu', [$this, 'addMenu']);
+        add_action('network_admin_menu', [$this, 'addNetworkMenu']);
     }
     
     /**

@@ -1,12 +1,13 @@
 <?php   declare(strict_types=1); // -*- coding: utf-8 -*-
 namespace DashboardMessage;
 
-class Migration
+use DashboardMessage\Interfaces\DispatchInterfece;
+
+class Migration implements DispatchInterfece
 {
-    public static function init()
+    public function dispatch()
     {
-        $self = new self();
-        $self->runMigration();
+        $this->runMigration();
     }
     /**
      * Version Number keep update when the plugin comes to a new update

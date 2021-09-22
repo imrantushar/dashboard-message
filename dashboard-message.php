@@ -30,6 +30,7 @@ final class DashboardMessage
     {
         $this->defineConstants();
         register_activation_hook(__FILE__, [$this, 'activate']);
+        add_action('plugins_loaded', [$this, 'runMigration']);
         add_action('plugins_loaded', [$this, 'initPlugin']);
     }
 
@@ -69,11 +70,7 @@ final class DashboardMessage
     public function initPlugin()
     {
         $this->loadTextdomain();
-        $this->dispatchAction();
-        \DashboardMessage\Migration::init();
-        if (is_admin()) {
-            \DashboardMessage\Admin::init();
-        }
+        new \DashboardMessage\Bootstrap();
     }
 
     public function loadTextdomain()
@@ -85,8 +82,10 @@ final class DashboardMessage
         );
     }
 
-    public function dispatchAction()
+    public function runMigration()
     {
+        $Migration = new \DashboardMessage\Migration();
+        $Migration->dispatch();
     }
 
     public function activate()

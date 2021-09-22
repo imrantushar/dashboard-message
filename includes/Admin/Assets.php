@@ -1,12 +1,13 @@
 <?php  declare(strict_types=1); // -*- coding: utf-8 -*-
 namespace DashboardMessage\Admin;
 
-class Assets
+use DashboardMessage\Interfaces\DispatchInterfece;
+
+class Assets implements DispatchInterfece
 {
-    public static function init()
+    public function dispatch()
     {
-        $self = new self();
-        add_action('admin_enqueue_scripts', [$self, 'loadScripts']);
+        add_action('admin_enqueue_scripts', [$this, 'loadScripts']);
     }
 
     /**

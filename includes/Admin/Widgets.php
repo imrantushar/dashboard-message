@@ -1,13 +1,14 @@
 <?php declare(strict_types=1); // -*- coding: utf-8 -*-
 namespace DashboardMessage\Admin;
 
-class Widgets
+use DashboardMessage\Interfaces\DispatchInterfece;
+
+class Widgets implements DispatchInterfece
 {
-    public static function init()
+    public function dispatch()
     {
-        $self = new self();
-        add_action('wp_dashboard_setup', [$self, 'addDashboardWidget']);
-        add_action('wp_network_dashboard_setup', [$self, 'addDashboardWidget']);
+        add_action('wp_dashboard_setup', [$this, 'addDashboardWidget']);
+        add_action('wp_network_dashboard_setup', [$this, 'addDashboardWidget']);
     }
     /**
      * Register New Dashboard Widget
