@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <phpunit
-	bootstrap="tests/bootstrap.php"
+	bootstrap="tests/PHPUnit/bootstrap.php"
 	backupGlobals="false"
 	colors="true"
 	convertErrorsToExceptions="true"
@@ -8,9 +8,21 @@
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite>
-			<directory prefix="test-" suffix=".php">./tests/</directory>
+		<testsuite name="Dashboard Message php unit tests">
+			<directory suffix="Test.php">./tests/PHPUnit/Unit</directory>
 			<!-- <exclude>./tests/test-sample.php</exclude> -->
 		</testsuite>
 	</testsuites>
+	<filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">includes</directory>
+            <exclude>
+                <directory>tests</directory>
+                <directory>vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="tmp"/>
+    </logging>
 </phpunit>
